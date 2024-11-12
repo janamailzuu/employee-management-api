@@ -12,6 +12,7 @@ import com.sas.hr.employee_management_api.util.CSVProcessor;
 import com.sas.hr.employee_management_api.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -33,9 +34,11 @@ import java.util.UUID;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
-
     private final CSVProcessor csvProcessor;
     private final EmployeeJpaRepository employeeJpaRepository;
+
+    @Value("${batch.size}")
+    private int batchSize;
 
     @Autowired
     public EmployeeService(EmployeeRepository employeeRepository, CSVProcessor csvProcessor, EmployeeJpaRepository employeeJpaRepository) {
@@ -85,7 +88,11 @@ public class EmployeeService {
      *                     Must not be null or empty.
      */
     private void persistEmployees(List<Employee> employeeList) {
-        employeeRepository.batchInsertEmployeesUsingJdbc(employeeList);
+        for (int i = 0; i < employeeList.size(); i += batchSize) {
+            int end = Math.min(i + batchSize, employeeList.size());
+            List<Employee> batchList = employeeList.subList(i, end);
+            employeeRepository.batchInsertEmployeesUsingJdbc(batchList); // Call repository method for each batch
+        }
     }
 
     /**
@@ -174,7 +181,7 @@ public class EmployeeService {
 
     /**
      * Deletes an employee record from the database based on the provided ID.
-     * 
+     *
      * This method retrieves the employee with the specified ID from the repository.
      * If the employee is found, it will be deleted. If no employee with the given ID
      * exists, an {@link EmployeeNotFoundException} will be thrown.

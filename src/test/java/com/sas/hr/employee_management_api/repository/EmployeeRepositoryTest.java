@@ -67,7 +67,7 @@ class EmployeeRepositoryTest {
         when(namedParameterJdbcTemplate.query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class)))
                 .thenReturn(expectedEmployees);
 
-        when(jdbcTemplate.queryForObject(anyString(), eq(Integer.class)))
+        when(namedParameterJdbcTemplate.queryForObject(anyString(),anyMap(), eq(Integer.class)))
                 .thenReturn(2);
 
         Page<Employee> result = employeeRepository.findEmployeesByBirthdayMonth(month, pageable);
@@ -75,28 +75,28 @@ class EmployeeRepositoryTest {
         assertEquals(2, result.getContent().size());
         assertEquals(2, result.getTotalElements());
         verify(namedParameterJdbcTemplate, times(1)).query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class));
-        verify(jdbcTemplate, times(1)).queryForObject(anyString(), eq(Integer.class));
+        verify(namedParameterJdbcTemplate, times(1)).queryForObject(anyString(),any(MapSqlParameterSource.class), eq(Integer.class));
     }
 
     @Test
     void testCountAddresses() {
-        when(jdbcTemplate.queryForObject(anyString(), eq(Integer.class)))
+        when(namedParameterJdbcTemplate.queryForObject(anyString(),any(MapSqlParameterSource.class), eq(Integer.class)))
                 .thenReturn(5);
 
-        int count = employeeRepository.countAddresses();
+        int count = employeeRepository.countEmployeesByBirthdayMonth(5);
 
         assertEquals(5, count);
-        verify(jdbcTemplate, times(1)).queryForObject(anyString(), eq(Integer.class));
+        verify(namedParameterJdbcTemplate, times(1)).queryForObject(anyString(),any(MapSqlParameterSource.class), eq(Integer.class));
     }
 
     @Test
     void testCountAddressesWithNullResult() {
-        when(jdbcTemplate.queryForObject(anyString(), eq(Integer.class)))
+        when(namedParameterJdbcTemplate.queryForObject(anyString(),anyMap(), eq(Integer.class)))
                 .thenReturn(null);
 
-        int count = employeeRepository.countAddresses();
+        int count = employeeRepository.countEmployeesByBirthdayMonth(5);
 
         assertEquals(0, count);
-        verify(jdbcTemplate, times(1)).queryForObject(anyString(), eq(Integer.class));
+        verify(namedParameterJdbcTemplate, times(1)).queryForObject(anyString(),any(MapSqlParameterSource.class), eq(Integer.class));
     }
 }

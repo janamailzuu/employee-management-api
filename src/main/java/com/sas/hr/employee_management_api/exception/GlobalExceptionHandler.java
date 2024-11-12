@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
-        ErrorResponse errorResponse = new ErrorResponse("Validation error", "Invalid input type: Expected EmployeeInputDTO");
+        ErrorResponse errorResponse = new ErrorResponse("Validation error", ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 

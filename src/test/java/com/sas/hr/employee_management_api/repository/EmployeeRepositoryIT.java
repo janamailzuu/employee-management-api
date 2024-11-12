@@ -51,13 +51,13 @@ class EmployeeRepositoryIT {
     void testBatchInsertEmployeesUsingJdbc() {
         List<Employee> employees = Arrays.asList(
                 new Employee(null, "John", "Doe", "New York", "NY", "HQ", LocalDate.of(1990, 5, 15)),
-                new Employee(null, "Jane", "Smith", "Los Angeles", "CA", "Branch", LocalDate.of(1985, 8, 22)),
-                new Employee(null, "Bob", "Johnson", "Chicago", "IL", "Branch", null)
+                new Employee(null, "Jane", "Smith", "Los Angeles", "CA", "Branch", LocalDate.of(1985, 5, 22)),
+                new Employee(null, "Bob", "Johnson", "Chicago", "IL", "Branch",  LocalDate.of(1991, 5, 22))
         );
 
         employeeRepository.batchInsertEmployeesUsingJdbc(employees);
 
-        int count = employeeRepository.countAddresses();
+        int count = employeeRepository.countEmployeesByBirthdayMonth(5);
         assertEquals(3, count);
     }
 
@@ -86,7 +86,7 @@ class EmployeeRepositoryIT {
         );
         employeeRepository.batchInsertEmployeesUsingJdbc(employees);
 
-        int count = employeeRepository.countAddresses();
-        assertEquals(2, count);
+        int count = employeeRepository.countEmployeesByBirthdayMonth(5);
+        assertEquals(1, count);
     }
 }
