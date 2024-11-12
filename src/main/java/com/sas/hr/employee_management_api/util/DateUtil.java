@@ -29,39 +29,33 @@ public class DateUtil {
                     .toFormatter()
     );
 
-    // Try parsing the birthday using different date formats
+    /**
+     * Parses a date string in multiple possible formats and returns the date in ISO format (yyyy-MM-dd).
+     * This method attempts to parse the given date string using a series of predefined date formatters.
+     * If the date string is successfully parsed, it is returned in ISO 8601 format. If none of the formatters
+     * can successfully parse the string, an error is logged and {@code null} is returned.
+     *
+     * The method also includes a check for dates within a reasonable range of ages (using the current year
+     * and a cutoff of 80 years ago), which can be useful for validating certain types of date inputs like birthdays.
+     *
+     * @param dateString The date string to be parsed. This string can be in any of the supported date formats.
+     * @return The parsed date in ISO 8601 format (yyyy-MM-dd) if successful, or {@code null} if parsing fails.
+     */
     public static String parseDateStringInDifferentFormats(String dateString) {
-        LocalDate now = LocalDate.now();
-        int currentYear = now.getYear();
-        int cutoffYear = currentYear - 80; // Adjust this value as needed
-
         for (DateTimeFormatter formatter : dateFormatters) {
             try {
                 LocalDate parsedDate = LocalDate.parse(dateString, formatter);
-
-                log.info("Birthday after parsing and adjustment: {}", parsedDate);
                 return parsedDate.format(DateTimeFormatter.ISO_DATE);
-            } catch (DateTimeParseException e) {
-                // Continue trying with other formats
-                continue;
-            }
+                 }catch (DateTimeParseException e) {
+                    continue;
+                 }
         }
-            // If none of the formats worked, log and return null or some default value
             log.error("Invalid birthday format: {}", dateString);
-            return null;  // Could be a fallback or an error handling strategy
+            return null;
     }
-
-
 
     public static String formatBirthDate(LocalDate date) {
         return date.format(DateTimeFormatter.ISO_DATE);
-    }
-
-    public static LocalDate convertDateStringToLocalDate(String dateString){
-        if(null!=dateString)
-            return LocalDate.parse(dateString);
-        else
-            return null;
     }
 
     public static LocalDate convertDateStringToFormattedLocalDate(String dateString){

@@ -44,54 +44,8 @@ public class EmployeeService {
         this.employeeJpaRepository = employeeJpaRepository;
     }
 
-//    // Process the CSV file passed with a filePath (either from resources or filesystem)
-//    public void processCsvFile(Resource resource) throws IOException {
-//        // Load employees from CSV using CsvLoader (from resources or filesystem)
-//        List<EmployeeInputDTO> employeeDTOList = csvProcessor.loadEmployeesFromCsv(resource);
-//        List<Employee> employeeList = EmployeeMapper.toEmployeeEntityList(employeeDTOList);
-//        // Persist employees to the database
-//        employeeRepository.batchInsertEmployeesUsingJdbc(employeeList);
-//    }
-//
-//    // A method to handle file upload from a client (for multipart file)
-//    public void processUploadedCsv(MultipartFile file) throws IOException {
-//
-//        // Generate a unique file name to avoid name collisions
-//        String tempFileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
-//
-//        // Define a temporary directory (use default temp directory)
-//        Path tempDir = Files.createTempDirectory("uploadedFiles");
-//
-//        // Create the path for the temporary file
-//        Path tempFilePath = tempDir.resolve(tempFileName);
-//
-//        // Save the MultipartFile to the temporary file
-//        Files.copy(file.getInputStream(), tempFilePath, StandardCopyOption.REPLACE_EXISTING);
-//
-//        Resource resource = new FileSystemResource(tempFilePath.toFile());
-//
-//        // Process the file using CsvLoader
-//        processCsvFile(resource);
-//    }
-
-//    /**
-//     * Saves employee records from a CSV file located in the classpath.
-//     *
-//     * This method reads employee data from a CSV file specified by the resource path
-//     * and processes it to save the employee records into the database. The path to the
-//     * CSV file is defined as a classpath resource. If an error occurs while reading
-//     * the file, an {@link IOException} will be thrown.
-//     *
-//     * @throws IOException if an error occurs while reading the CSV file.
-//     */
-//    public void saveEmployeesFromResources() throws IOException {
-//        Resource resource = new ClassPathResource("static/data/ProgrammingChallengeData.csv"); // adjust based on your structure
-//        processCsvFile(resource);
-//    }
-
     /**
      * Processes a CSV file to load employee data and persist it to the database.
-     *
      * This method reads employee information from the specified CSV resource, converts
      * the data into a list of {@link EmployeeInputDTO} objects, maps these DTOs to
      * {@link Employee} entities, and then persists the entities to the database.
@@ -220,7 +174,7 @@ public class EmployeeService {
 
     /**
      * Deletes an employee record from the database based on the provided ID.
-     *
+     * 
      * This method retrieves the employee with the specified ID from the repository.
      * If the employee is found, it will be deleted. If no employee with the given ID
      * exists, an {@link EmployeeNotFoundException} will be thrown.
@@ -264,7 +218,6 @@ public class EmployeeService {
 
     /**
      * Creates a new employee record in the database using the provided details.
-     *
      * This method maps the provided {@link EmployeeInputDTO} to an {@link Employee} entity
      * and saves it to the repository. Upon successful creation, it returns the details of
      * the newly created employee as an {@link EmployeeDetailsDTO}.

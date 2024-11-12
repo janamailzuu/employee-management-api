@@ -19,33 +19,41 @@ import java.util.List;
 public class CSVProcessor {
 
 
+    /**
+     * Loads employee data from a CSV file and converts it into a list of {@link EmployeeInputDTO} objects.
+     * The method reads the CSV file, processes each row, and splits the location field into city and state.
+     * It assumes the CSV file contains a header row, which will be skipped during parsing. The method
+     * extracts the first name, last name, location, and birthday for each employee and creates an
+     * {@link EmployeeInputDTO} object, which is then added to the result list.
+     *
+     * @param resource The resource representing the CSV file to be loaded. This can be a file, classpath resource, etc.
+     * @return A list of {@link EmployeeInputDTO} objects containing the employee data loaded from the CSV file.
+     * @throws IOException If an I/O error occurs while reading the CSV file.
+     */
     public List<EmployeeInputDTO> loadEmployeesFromCsv(Resource resource) throws IOException {
         List<EmployeeInputDTO> employees = new ArrayList<>();
 
-        // Open the CSV file for reading
         try (BufferedReader reader = createReader(resource)) {
-            // Using CSVFormat.Builder to specify that the first row should be treated as headers
             CSVFormat csvFormat = CSVFormat.DEFAULT
                     .builder()
-                    .setHeader()  // Automatically treat the first row as headers
-                    .setSkipHeaderRecord(true)  // Skip the header row
+                    .setHeader()
+                    .setSkipHeaderRecord(true)
                     .build();
 
             Iterable<CSVRecord> records = csvFormat.parse(reader);
 
             for (CSVRecord record : records) {
-                // Extract fields from the CSV record
                 String firstName = record.get("First name");
                 String lastName = record.get("Last name");
                 String location = record.get("Location");
-                // Split the location into city and state
-                String[] locationParts = location.split(",", 2); // Split at the first comma
-                String city = locationParts[0].trim();  // City is the first part
-                String state = locationParts.length > 1 ? locationParts[1].trim() : "";  // State is the second part
+
+                String[] locationParts = location.split(",", 2);
+                String city = locationParts[0].trim();
+                String state = locationParts.length > 1 ? locationParts[1].trim() : "";
 
                 String birthdayStr = record.get("Birthday");
 
-                // Create and add the Employee object to the list
+
                 EmployeeInputDTO employee = new EmployeeInputDTO(firstName, lastName,city,state, location, birthdayStr);
                 employees.add(employee);
             }
