@@ -141,6 +141,12 @@ mvn test
 ### Integration Tests
 The integration tests ensure that the API is working as expected by sending HTTP requests to the endpoints and checking responses.
 
+
+## Error Handling
+- **400 Bad Request**: The request is malformed, or required data is missing.
+- **404 Not Found**: The requested resource (e.g., employee) does not exist.
+- **500 Internal Server Error**: An unexpected error occurred on the server.
+
 ## Monitoring and Health Check
 
 This application uses Spring Boot Actuator for monitoring and health checks. The following endpoints are available:
