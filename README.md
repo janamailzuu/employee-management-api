@@ -94,7 +94,7 @@ The Employee entity includes:
 
 - id: Unique identifier (auto-generated).
 - first_name: Employee’s first name.
-- first_name: Employee’s last name.
+- last_name: Employee’s last name.
 - location: Location of the employee.
 - city: City
 - state: state
