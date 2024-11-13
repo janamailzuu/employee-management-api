@@ -158,5 +158,9 @@ This application uses Spring Boot Actuator for monitoring and health checks. The
 
 ## Possible Enhancements
 
--Database Support: Switch from H2 to MySQL, MongoDB, PostgreSQL, etc.
+- Database Support: Switch from H2 to MySQL, MongoDB, PostgreSQL, etc.
 - Validation: Add more robust validation for fields such as birthday.
+- Creating error report after the CSV processing
+-  Birthday column to be indexed
+-  API versioning
+-  Authentication and Authorization for role based access
