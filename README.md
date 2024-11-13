@@ -1,20 +1,12 @@
-# Employee Management Service
+# Employee Management API
 
 ## Overview
-This project provides a RESTful API for managing employee data, supporting CRUD operations and employee birthday lookup by month. Need to maintain and retrieve employee information, especially to find those with birthdays in a given month to recognize their special day.
-
-The project uses:
-- **Java 21**
-- **Spring Boot 3.3.5** for application setup
-- **Spring Data JPA** and **Hibernate** for database operations
-- **H2 Database** (in-memory) for development and testing purposes
-- **Spring Boot Starter Actuator**: To expose useful endpoints for monitoring the application.
-- **Spring Boot Starter Test**: For unit and integration testing.
-
+This project provides a RESTful API for managing employee data.It allows for CRUD operations (Create, Read, Update, Delete) on employee records and  supports uploading employee data through CSV files, both from the resources folder and local file system.
 
 ## Features
 - **CRUD Operations**: Create, Read, Update, Delete employee records.
 - **Birthday Filter**: Retrieve employees based on their birthday month.
+- **Upload Employee Data**: Upload employee data via CSV from the resources folder or local filesystem.
 - **RESTful API**: Interacts with JSON requests and responses.
 - **In-memory H2 Database**: Stores employee information (easily replaceable with other databases).
 
@@ -23,7 +15,10 @@ The project uses:
 - **Spring Boot** (3.3.5)
 - **Spring Data JPA**: Manages the persistence layer.
 - **H2 Database**: Lightweight, in-memory database for development.
+- **Apache Commons CSV**: For CSV file parsing
 - **Maven**: Dependency and build management.
+-  **Spring Boot Starter Actuator**: To expose useful endpoints for monitoring the application.
+- **Spring Boot Starter Test**: For unit and integration testing.
 
 ## Prerequisites
 - **Java 21** or higher
@@ -53,7 +48,8 @@ mvn clean package
 java -jar target/employee-management-api-0.0.1-SNAPSHOT.jar
 ```
 
-4. **Access the API The service runs on http://localhost:8080 by default.**
+4. **Access the application at:**
+   - `http://localhost:8080`
 
 ### API Endpoints
 
