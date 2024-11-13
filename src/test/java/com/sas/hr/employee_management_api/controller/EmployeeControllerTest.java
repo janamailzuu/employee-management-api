@@ -2,7 +2,6 @@ package com.sas.hr.employee_management_api.controller;
 
 import com.sas.hr.employee_management_api.dto.EmployeeDetailsDTO;
 import com.sas.hr.employee_management_api.dto.EmployeeInputDTO;
-import com.sas.hr.employee_management_api.exception.EmployeeNotFoundException;
 import com.sas.hr.employee_management_api.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -72,7 +71,6 @@ public class EmployeeControllerTest {
     @Test
     public void createEmployee_ShouldReturnCreatedEmployee() throws Exception {
         // Arrange
-        EmployeeInputDTO inputDto = new EmployeeInputDTO("John", "Doe", "New York", "NY", "USA", "1990-01-01");
         EmployeeDetailsDTO createdEmployee = new EmployeeDetailsDTO(1L, "John", "Doe", "New York", "NY", "USA", "1990-01-01");
 
         when(employeeService.createEmployee(any(EmployeeInputDTO.class))).thenReturn(createdEmployee);
@@ -109,7 +107,6 @@ public class EmployeeControllerTest {
     public void updateEmployee_ShouldReturnUpdatedEmployee_WhenExists() throws Exception {
         // Arrange
         Long employeeId = 1L;
-        EmployeeInputDTO inputDto = new EmployeeInputDTO("John", "Doe", "New York", "NY", "USA", "1990-01-01");
         EmployeeDetailsDTO updatedEmployee = new EmployeeDetailsDTO(employeeId, "John", "Doe", "New York", "NY", "USA", "1990-01-01");
 
         when(employeeService.updateEmployee(eq(employeeId), any(EmployeeInputDTO.class))).thenReturn(updatedEmployee);
@@ -131,8 +128,6 @@ public class EmployeeControllerTest {
     public void updateEmployee_ShouldReturnNotFound_WhenDoesNotExist() throws Exception {
         // Arrange
         Long employeeId = 2L;
-        EmployeeInputDTO inputDto = new EmployeeInputDTO("Jane", "Smith", "Los Angeles", "CA", "USA", "1992-02-02");
-
         when(employeeService.updateEmployee(eq(employeeId), any(EmployeeInputDTO.class))).thenReturn(null);
 
         // Act & Assert
@@ -162,7 +157,7 @@ public class EmployeeControllerTest {
     public void getAllEmployees_ShouldReturnPageOfEmployees_WhenMonthSpecified() throws Exception {
         // Arrange
         Pageable pageable = PageRequest.of(0, 10);
-        List<EmployeeDetailsDTO> employees = Arrays.asList(
+        List<EmployeeDetailsDTO> employees = List.of(
                 new EmployeeDetailsDTO(1L, "John", "Doe", "New York", "NY", "USA", "1990-01-01")
         );
         Page<EmployeeDetailsDTO> page = new PageImpl<>(employees, pageable, employees.size());
@@ -219,7 +214,7 @@ public class EmployeeControllerTest {
         doNothing().when(employeeService).processUploadedCsv(any());
 
         // Act & Assert
-        mockMvc.perform(multipart("/employees/upload/csvFromFileSystem")
+        mockMvc.perform(multipart("/employees/upload-from-file")
                         .file(file))
                 .andExpect(status().isCreated())
                 .andExpect(content().string("CSV file processed and data saved successfully."));
@@ -240,7 +235,7 @@ public class EmployeeControllerTest {
         doThrow(new IOException("Error processing CSV")).when(employeeService).processUploadedCsv(any());
 
         // Act & Assert
-        mockMvc.perform(multipart("/employees/upload/csvFromFileSystem")
+        mockMvc.perform(multipart("/employees/upload-from-file")
                         .file(file))
                 .andExpect(status().isInternalServerError())
                 .andExpect(content().string("Error processing CSV file: Error processing CSV"));
@@ -251,7 +246,7 @@ public class EmployeeControllerTest {
     @Test
     public void uploadCsvFromFileSystem_ShouldReturnBadRequest_WhenFileIsMissing() throws Exception {
         // Act & Assert
-        mockMvc.perform(multipart("/employees/upload/csvFromFileSystem"))
+        mockMvc.perform(multipart("/employees/upload-from-file"))
                 .andExpect(status().isBadRequest());
 
         verify(employeeService, never()).processUploadedCsv(any());
@@ -268,7 +263,7 @@ public class EmployeeControllerTest {
         );
 
         // Act & Assert
-        mockMvc.perform(multipart("/employees/upload/csvFromFileSystem")
+        mockMvc.perform(multipart("/employees/upload-from-file")
                         .file(file))
                 .andExpect(status().isBadRequest());
 
@@ -282,7 +277,7 @@ public class EmployeeControllerTest {
         doNothing().when(employeeService).saveEmployeesFromResources();
 
         // Act & Assert
-        mockMvc.perform(post("/employees/upload/csvFromResourcesFolder")
+        mockMvc.perform(post("/employees/import-from-resources")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(content().string("CSV file processed and data saved successfully."));
@@ -296,7 +291,7 @@ public class EmployeeControllerTest {
         doThrow(new IOException("File not found in resources")).when(employeeService).saveEmployeesFromResources();
 
         // Act & Assert
-        mockMvc.perform(post("/employees/upload/csvFromResourcesFolder")
+        mockMvc.perform(post("/employees/import-from-resources")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
                 .andExpect(content().string("Error processing CSV file: File not found in resources"));

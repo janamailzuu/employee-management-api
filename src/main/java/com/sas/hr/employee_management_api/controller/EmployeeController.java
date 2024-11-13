@@ -48,8 +48,8 @@ public class EmployeeController {
             @ApiResponse(responseCode = "500", description = "Error uploading file.",
                     content = @Content)
     })
-    @PostMapping("/upload/csvFromResourcesFolder")
-    public ResponseEntity<String> uploadCsvFileFromResources(){
+    @PostMapping("/import-from-resources")
+    public ResponseEntity<String> importCsvFromResources(){
         try {
             employeeService.saveEmployeesFromResources();
             return ResponseEntity.status(HttpStatus.CREATED).body("CSV file processed and data saved successfully.");
@@ -69,7 +69,7 @@ public class EmployeeController {
             @ApiResponse(responseCode = "500", description = "Error processing CSV file.",
                     content = @Content)
     })
-    @PostMapping("/upload/csvFromFileSystem")
+    @PostMapping("/upload-from-file")
     public ResponseEntity<String> uploadCsvFromFileSystem(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty");
