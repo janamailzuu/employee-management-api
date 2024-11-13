@@ -162,7 +162,6 @@ This application uses Spring Boot Actuator for monitoring and health checks. The
 - Validation: Add more robust validation for fields such as birthday.
 - Creating error report after the CSV processing
 - File Validation and Pre-processing - 415 Unsupported Media Type for the file type validation, correctness of the content, avoiding duplicates
--  Birthday column to be indexed
 -  API versioning
 -  Authentication and Authorization for role based access
 -  Frontend Integration: Build a simple frontend for HR to manage employee data and upload files via a user-friendly interface.
