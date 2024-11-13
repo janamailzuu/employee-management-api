@@ -61,8 +61,8 @@ java -jar target/employee-management-api-0.0.1-SNAPSHOT.jar
 | PUT | /api/employees/{id} | Update an employee by ID |
 | DELETE | /api/employees/{id} | Delete an employee by ID |
 | GET | /api/employees?month={month} | Get employees with birthdays in a given month |
-| POST | /api/employees/upload/csvFromResourcesFolder | Upload CSV file from resources folder |
-| POST | /api/employees/upload/csvFromFileSystem | Upload CSV file from file system |
+| POST | /api/employees/import-from-resources | Upload CSV file from resources folder |
+| POST | /api/employees/upload-from-file | Upload CSV file from file system |
 
 
 ### Example Requests
