@@ -128,25 +128,6 @@ While this solution is sufficient for most use cases, **future enhancements** co
 
 ---
 
-## Conclusion
-
-This section outlines the strategies considered for implementing CSV file uploads. The chosen solution strikes a balance between simplicity (via direct file upload) and performance (via batch inserts). Future improvements could focus on **asynchronous processing** for scalability and **cloud-based solutions** for greater reliability and performance.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Technologies Used
 - **Java 21**
 - **Spring Boot** (3.3.5)
