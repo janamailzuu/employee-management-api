@@ -6,7 +6,7 @@ This project provides a RESTful API for managing employee data.It allows for CRU
 ## Features
 - **CRUD Operations**: Create, Read, Update, Delete employee records.
 - **Birthday Filter**: Retrieve employees based on their birthday month.
-- **Upload Employee Data**: Upload employee data via CSV from the resources folder or local filesystem.
+- **Import or Upload CSV Data**: Import the CSV from the resources folder or upload it from local filesystem.
 - **RESTful API**: Interacts with JSON requests and responses.
 - **In-memory H2 Database**: Stores employee information (easily replaceable with other databases).
 
@@ -154,4 +154,3 @@ This application uses Spring Boot Actuator for monitoring and health checks. The
 
 -Database Support: Switch from H2 to MySQL, MongoDB, PostgreSQL, etc.
 - Validation: Add more robust validation for fields such as birthday.
-- Pagination and Sorting: Add support for paginated and sorted results for large datasets.
