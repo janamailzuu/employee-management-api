@@ -21,7 +21,7 @@ This project provides a RESTful API for managing employee data.It allows for CRU
 - **Spring Boot Starter Test**: For unit and integration testing.
 
 ## Prerequisites
-- **Java 21** or higher
+- **Java 21**
 - **Maven** installed
 - **Git** (if cloning from a repository)
 
