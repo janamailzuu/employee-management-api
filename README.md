@@ -158,9 +158,14 @@ This application uses Spring Boot Actuator for monitoring and health checks. The
 
 ## Possible Enhancements
 
-- Database Support: Switch from H2 to MySQL, MongoDB, PostgreSQL, etc.
+- Asynchronous processing for handling large filess by considering other options
 - Validation: Add more robust validation for fields such as birthday.
 - Creating error report after the CSV processing
+- File Validation and Pre-processing - 415 Unsupported Media Type for the file type validation, correctness of the content, avoiding duplicates
 -  Birthday column to be indexed
 -  API versioning
 -  Authentication and Authorization for role based access
+-  Frontend Integration: Build a simple frontend for HR to manage employee data and upload files via a user-friendly interface.
+-  Database Support: Switch from H2 to MySQL, MongoDB, PostgreSQL, etc.
+-  Switch to use testContainers for Integration tests while switch database from h2.
+
