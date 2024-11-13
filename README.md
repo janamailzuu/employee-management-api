@@ -100,10 +100,6 @@ The Employee entity includes:
 - state: state
 - birth_day: birthdate of the employee
 
-## CSV Data Import
-
-Place the provided `ProgrammingChallengeData.csv` file in the `src/main/resources` folder. On application startup, the service can read and populate data from this CSV (optional, depending on requirements).
-
 ## Testing Strategy
 
 - Unit Testing: Tests individual methods using JUnit and Mockito.
