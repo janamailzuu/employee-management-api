@@ -151,9 +151,9 @@ The integration tests ensure that the API is working as expected by sending HTTP
 
 This application uses Spring Boot Actuator for monitoring and health checks. The following endpoints are available:
 
-- Health check: `http://localhost:8080/actuator/health`
-- Metrics: `http://localhost:8080/actuator/metrics`
-- Info: `http://localhost:8080/actuator/info`
+- Health check: `http://localhost:8080/api/actuator/health`
+- Metrics: `http://localhost:8080/api/actuator/metrics`
+- Info: `http://localhost:8080/api/actuator/info`
 
 
 ## Possible Enhancements
