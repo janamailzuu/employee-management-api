@@ -124,7 +124,7 @@ curl -X POST http://localhost:8080/api/employees -H "Content-Type: application/j
     "First Name": "Luisa",
     "Last Name": "Brakus",
     "Location": "San Diego, CA",
-    "birthday": "1/30/2001"
+    "birthday": "05/10/2001"
 }'
 ```
 
