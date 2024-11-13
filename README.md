@@ -158,7 +158,7 @@ This application uses Spring Boot Actuator for monitoring and health checks. The
 
 ## Possible Enhancements
 
-- Asynchronous processing for handling large filess by considering other options
+- Asynchronous processing for handling large files.
 - Validation: Add more robust validation for fields such as birthday.
 - Creating error report after the CSV processing
 - File Validation and Pre-processing - 415 Unsupported Media Type for the file type validation, correctness of the content, avoiding duplicates
